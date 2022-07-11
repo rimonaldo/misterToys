@@ -5,6 +5,7 @@ import { toyService } from "../../services/toy.service.js"
 export const toyModule = {
     state: {
         toys: null,
+        newToy: null
         // todoToEdit: null,
     },
 
@@ -15,14 +16,16 @@ export const toyModule = {
         // toggleStatus(state, { todo }) {
         //     todo.status === 'active' ? todo.status = 'done' : todo.status = 'active'
         // },
-        // updateTodo(state, { todo }) {
-        //     const idx = state.todos.findIndex(todo => todo._id === todoId)
-        //     state.todos.splice(idx, 1, todo)
-        // },
-        // removeTodo(state, { todoId }) {
-        //     const idx = state.todos.findIndex(todo => todo._id === todoId)
-        //     state.todos.splice(idx, 1)
-        // },
+        updateToy(state, { toyId, toys }) {
+            const idx = state.toys.findIndex(toys => toys._id === toyId)
+            state.toys.splice(idx, 1, state.toys[idx])
+            state.toys = toys
+        },
+        removeToy(state, { toyId }) {
+            const idx = state.toys.findIndex(toy => toy._id === toyId)
+            console.log(idx);
+            state.toys.splice(idx, 1)
+        },
         // addUserTodos(state, payload) {
         //     userService.save(state.user)
         // },
@@ -42,29 +45,40 @@ export const toyModule = {
         //         })
         // },
 
-        // updateTodo({ commit }, { todo }) {
-        //     commit({ type: 'updateTodo', todo })
-        //     todoService.save(todo)
-        //         .then((todo) => {
-        //         })
-        // },
+        updateToy({ commit }, { toy }) {
+            return toyService.save(toy)
+                .then((updatedToy) => {
 
-        // removeTodo({ commit }, { todoId }) {
-        //     todoService.remove(todoId)
-        //         .then(() => {
-        //             commit({ type: 'removeTodo', todoId })
-        //         })
-        // },
+                    toyService.query()
+                        .then((toys) => {
+                            commit({ type: 'updateToy', toyId: updatedToy._id, toys })
+                        })
+                    return toy
+                })
+        },
+
+        removeToy({ commit }, { toyId }) {
+            toyService.remove(toyId)
+                .then(() => {
+                    commit({ type: 'removeToy', toyId })
+                })
+        },
 
         getToyById(context, { toyId }) {
             return toyService.getById(toyId)
 
+        },
+        getEmptyToy({ name = 'new toy' }) {
+            return toyService.getEmptyToy(name)
         }
     },
     getters: {
         toys({ toys }) {
             return toys
         },
+        emptyToy() {
+            return toyService.getEmptyToy()
+        }
 
         // getFilter({ filterBy }) {
         //     return filterBy

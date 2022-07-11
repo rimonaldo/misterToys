@@ -3,7 +3,7 @@
 <template>
     <section class="toys">
         <h1>toys</h1>
-        <toy-list :toys="toys"></toy-list>
+        <toy-list :toys="toys" @removeToy="removeToy" />
     </section>
 </template>
  <script>
@@ -25,11 +25,15 @@ export default {
     },
     created() {
         if (this.toys) {
-            console.log('toy-app got :',this.toys);
+            console.log('toy-app got :', this.toys);
 
         }
     },
-    methods: {},
+    methods: {
+        removeToy(toy) {
+            this.$store.dispatch({ type: 'removeToy', toyId: toy._id })
+        }
+    },
     computed: {},
     unmounted() { },
 };

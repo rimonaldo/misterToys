@@ -8,14 +8,16 @@
             <div class="stock">{{ toy.inStock }}</div>
             <button>Buy Now</button>
         </div>
-<router-link :to="'/details/'+toy._id"><button>details</button> </router-link>
-
+        <router-link :to="'/details/' + toy._id"><button>details</button> </router-link>
+        <router-link :to="'/edit/' + toy._id"><button>edit</button> </router-link>
+        <button @click="removeToy(toy)">X</button>
     </section>
 
 </template>
 
  <script>
 export default {
+    emits:['removeToy'],
     name: 'ProjectApp',
     props: {
         toy: {
@@ -28,7 +30,11 @@ export default {
         return {};
     },
     created() { },
-    methods: {},
+    methods: {
+        removeToy(toy) {
+            this.$emit('removeToy', toy)
+        }
+    },
     computed: {},
     unmounted() { },
 };

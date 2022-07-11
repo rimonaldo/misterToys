@@ -39,18 +39,18 @@ function save(toy) {
 }
 
 
-function getEmptyToy() {
-    return {
-        _id: '',
-        label: { sticker: '⚪', txt: null },
-        task: null,
-        importance: null,
-        due: null,
+function getEmptyToy(name='') {
+    const toy = {
+        _id: null,
+        name,
+        price: null,
+        labels: [],
+        inStock: true,
         createdAt: Date.now(),
-        status: 'active',
-        user: {},
-        isDone: false,
     }
+    return new Promise((resolve , reject)=>{
+        resolve(toy)
+    })
 }
 
 function _createToys() {

@@ -2,6 +2,8 @@
 
     <section class="details">
         <h1>details</h1>
+
+        {{toy}}
     </section>
 
 </template>
@@ -19,7 +21,6 @@ export default {
     },
     created() {
         const { toyId } = this.$route.params
-        console.log(toyId)
         this.$store.dispatch({type:'getToyById', toyId})
             .then((toy)=>{
                 this.toy = toy

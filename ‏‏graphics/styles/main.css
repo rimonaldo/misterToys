@@ -9,9 +9,6 @@
 
 /* COMPONENTS */
 @import 'cmps/header.css';
-@import 'cmps/todo-filter.css';
-@import 'cmps/todo-list.css';
-@import 'cmps/todo-edit.css';
 @import 'cmps/footer.css';
 
 /* Media Queries */

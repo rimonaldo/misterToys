@@ -1,9 +1,14 @@
 <template>
+    <section class="home">
+        <h1>home</h1>
 
+<router-link to="/toy">toys</router-link>
+
+    </section>
 </template>
  <script>
 export default {
-    name: 'ProjectApp',
+    name: 'home',
     components: {},
     data() {
         return {};

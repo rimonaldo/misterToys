@@ -1,14 +1,11 @@
 <template>
-
-    <section class="header">
-        <router-link to="/">home</router-link>
-
+    <section class="footer">
+        <h1>footer</h1>
     </section>
-
 </template>
  <script>
 export default {
-    name: 'header',
+    name: 'ProjectApp',
     components: {},
     data() {
         return {};
@@ -20,8 +17,4 @@ export default {
 };
 </script>
  <style>
- /* .header {
-    line-height: 4rem;
-    background-color: gray;
- } */
  </style>

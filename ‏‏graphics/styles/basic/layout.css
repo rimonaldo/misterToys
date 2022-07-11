@@ -1,0 +1,9 @@
+/* LAYOUTS*/
+.main-layout{
+    padding: 0 2rem;
+}
+
+.main-body{
+    min-height: 87vh;
+    background-color: gainsboro;
+}

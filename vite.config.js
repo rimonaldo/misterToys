@@ -10,5 +10,10 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    outDir: '../public', // this line place index.html in the public folder
+    assetsDir: './dist', // this line place your assets in the public/dist folder
   }
+
 })

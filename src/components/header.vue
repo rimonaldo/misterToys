@@ -20,8 +20,8 @@ export default {
 };
 </script>
  <style>
- /* .header {
+ .header {
     line-height: 4rem;
     background-color: gray;
- } */
+ }
  </style>

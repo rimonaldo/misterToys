@@ -2,23 +2,25 @@
 
 <template>
     <section class="toys">
-        <h1>toys</h1>
-        <toy-list :toys="toys" @removeToy="removeToy" />
+        <!-- <toy-filter @setFilter="setFilter"></toy-filter> -->
+        <cool-form @setFilter="setFilter" />
+        <toy-list :toys="toys" @removeToy="removeToy" v-if="toys" />
     </section>
 </template>
  <script>
 import toyList from '../components/toy.list.vue';
-
+import toyFilter from '../components/filter.vue';
+import coolForm from '../components/form.vue';
 export default {
     props: {
-        toys: {
-            type: Array,
-            required: true,
-        },
+
+
     },
     name: 'toy',
     components: {
         toyList,
+        toyFilter,
+        coolForm 
     },
     data() {
         return {};
@@ -32,9 +34,17 @@ export default {
     methods: {
         removeToy(toy) {
             this.$store.dispatch({ type: 'removeToy', toyId: toy._id })
+        },
+        setFilter(filter) {
+            filter = JSON.parse(JSON.stringify(filter));
+            this.$store.dispatch({ type: "setFilterBy", filterBy: filter });
+        },
+    },
+    computed: {
+        toys() {
+            return this.$store.getters.toys
         }
     },
-    computed: {},
     unmounted() { },
 };
 </script>

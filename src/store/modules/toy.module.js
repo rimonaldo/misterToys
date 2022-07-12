@@ -4,7 +4,7 @@ import { toyService } from "../../services/toy.service.js"
 
 export const toyModule = {
     state: {
-        toys: null,
+        toys: [],
         newToy: null
         // todoToEdit: null,
     },
@@ -13,22 +13,21 @@ export const toyModule = {
         setToys(state, { toys }) {
             state.toys = toys
         },
-        // toggleStatus(state, { todo }) {
-        //     todo.status === 'active' ? todo.status = 'done' : todo.status = 'active'
-        // },
-        updateToy(state, { toyId, toys }) {
-            const idx = state.toys.findIndex(toys => toys._id === toyId)
-            state.toys.splice(idx, 1, state.toys[idx])
-            state.toys = toys
+        updateToy(state, { updatedToy }) {
+            const idx = state.toys.findIndex(currToy => currToy._id === updatedToy._id)
+            state.toys.splice(idx, 1, updatedToy)
+            // state.toys = toys
+
+        },
+        addToy(state, { toy }) {
+            console.log('store',toy);
+            state.toys.push(toy)
         },
         removeToy(state, { toyId }) {
             const idx = state.toys.findIndex(toy => toy._id === toyId)
             console.log(idx);
             state.toys.splice(idx, 1)
         },
-        // addUserTodos(state, payload) {
-        //     userService.save(state.user)
-        // },
     },
     actions: {
         loadToys({ commit }) {
@@ -38,55 +37,57 @@ export const toyModule = {
                     return toys
                 })
         },
-        // toggleStatus({ commit }, payload) {
-        //     commit(payload)
-        //     todoService.save(payload.todo)
-        //         .then((todo) => {
-        //         })
-        // },
-
         updateToy({ commit }, { toy }) {
             return toyService.save(toy)
                 .then((updatedToy) => {
-
-                    toyService.query()
-                        .then((toys) => {
-                            commit({ type: 'updateToy', toyId: updatedToy._id, toys })
-                        })
-                    return toy
+                    if (toy._id) {
+                        commit({ type: 'updateToy', updatedToy })
+                    } else {
+                        commit({ type: 'addToy', toy:updatedToy })
+                    }
+                    // return toy
                 })
         },
-
         removeToy({ commit }, { toyId }) {
             toyService.remove(toyId)
                 .then(() => {
                     commit({ type: 'removeToy', toyId })
                 })
         },
-
         getToyById(context, { toyId }) {
             return toyService.getById(toyId)
 
         },
         getEmptyToy({ name = 'new toy' }) {
             return toyService.getEmptyToy(name)
-        }
+        },
+        setFilterBy({ commit }, { filterBy }) {
+            toyService.query(filterBy).then((toys) => {
+                commit({ type: 'setToys', toys })
+            })
+        },
     },
     getters: {
-        toys({ toys }) {
-            return toys
+        toys(state) {
+            return state.toys
         },
         emptyToy() {
             return toyService.getEmptyToy()
-        }
+        },
+        toysToDisplay({ toys, filterby }) {
+            if (!filterby) return toys
+            const { txt, status, byLabel, bySort } = filterby
 
-        // getFilter({ filterBy }) {
-        //     return filterBy
-        // },
+            // txt
+            const regex = new RegExp(txt, 'i')
+            let filteredToys = toys.filter((toy) => regex.test(toy.name))
 
-        // todo({ todoToEdit }) {
-        //     return todoToEdit
-        // }
+            if (status) {
+                filteredToys = filteredToys.filter((toy) => {
+                    status === 'in stock' ? toy.inStock : !toy.inStock
+                })
+            }
+        },
 
     },
 }

@@ -3,7 +3,7 @@
     <div class="section edit" v-if="toy">
         {{ toy }}
 
-        <form @submit="saveToy">
+        <form @submit.prevent="saveToy">
 
             <input type="text" v-model="toy.name">
             <input placeholder="price" type="text" v-model="toy.price">

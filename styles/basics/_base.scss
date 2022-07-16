@@ -1,0 +1,118 @@
+::selection {
+    background-color: $clr1;
+    color: $clr3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html { 
+   font-family:  sans-serif; 
+   color: $clr3;
+
+   @media (max-width: 1300px) {
+       font-size: 13px;
+   }
+}
+
+body {
+    margin: 0;
+    background-color: $clr4;
+    // EXPLORE //
+    // @include for-normal-layout {
+        //     &.sidebar-open {
+            //         overflow: hidden;
+            //     }
+            // }
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 500;
+            margin: 0 0 1rem;
+            line-height: lh(40px, 29px);
+        }
+        
+        h1 {
+            color: $clr1;
+            font-size: rem(60px);
+            text-transform: uppercase;
+            @include type(bold);
+        }
+        
+        h2 {
+            color: $clr1;
+            font-size: em(46px);
+            text-transform: uppercase;
+        }
+        
+        h3 {
+            @include type(lightSpaced);
+    color: $clr3;
+    font-size: em(26px);
+}
+
+img {
+    width: 100%;
+}
+
+p {
+    margin: 0 0 1em;
+    max-width: 60ch;
+    .main-text & {
+        font-size: rem(16px);
+        padding-inline-start: rem(30px);
+        position: relative;
+        
+        // EXPLORE //
+        &::after {
+            // content: "";
+            // position: absolute;
+            // display: block;
+            // top: 0;
+            // left: 0;
+            // width: 8px;
+            // height: 100%;
+            // max-height: 42px;
+            // background-color: $clr1;
+            
+            @include for-wide-layout {
+                // width: 10px;
+            }
+        }        
+        // EXPLORE //
+        @include for-wide-layout {
+            // font-size: rem(26px);
+        }
+    }
+}
+
+.btn-action {
+    @include btn($padding:0.1rem 1rem);
+    
+    &-dark {
+        @include btn($type: dark,$padding:0.1rem 1rem);
+    }
+    
+    &-light {
+        @include btn($type: light,$padding:0.1rem 1rem);
+    }
+}
+
+
+// links
+a {
+    text-transform: uppercase;
+    color: $clr1;
+    text-decoration: none;
+    &.active {
+        background-color: $clr1;
+        color: $clr2;
+    }
+}
+
+mark {
+    color: $clr1;
+    background-color: transparent;
+}
+

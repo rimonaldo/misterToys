@@ -1,5 +1,5 @@
 <template>
-    <section class="filter">
+    <section>
         <input @input="setFilter" v-model="filterBy.txt" type="text" placeholder="Search by toy name..." />
         <select @change="setFilter" v-model="filterBy.byLabel" multiple>
             <option value="">Select label</option>

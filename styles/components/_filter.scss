@@ -1,0 +1,33 @@
+body .filter {
+    // border: 1px white solid;
+
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+
+        .inputs {
+            margin: 0 auto;
+            width: 50%;
+            max-width: 600px;
+
+
+            .el-select {
+                // outline: 5px red solid;
+                width: 70%;
+            }
+
+            >* {
+                // border: 1px white solid;
+                margin-top: 1em;
+            }
+        }
+
+        >* {
+            // border: 1px white solid;
+            margin-bottom: 1rem;
+        }
+
+    }
+}

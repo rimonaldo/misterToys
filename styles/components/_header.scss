@@ -1,0 +1,13 @@
+
+.header {
+    background-color: white;
+    // line-height: lh(70px);
+    grid-row-start: 1;
+    border: 1px black solid;
+    padding-top: 10px;
+
+    a {
+        align-self: flex-end;
+        padding-inline-end: 1rem;
+    }
+}

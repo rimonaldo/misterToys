@@ -8,6 +8,7 @@
             <input type="text" v-model="toy.name">
             <input placeholder="price" type="text" v-model="toy.price">
             <div class="select-labels">
+                <input type="checkbox" v-model="toy.inStock">
                 <button @click="isOpen = !isOpen">^</button>
                 <select :class="{ open: isOpen }" class="labels" multiple v-model="toy.labels">
                     <option v-for="(label, idx) in labels" :key="idx">{{ label }}</option>
@@ -64,7 +65,7 @@ export default {
     unmounted() { },
 };
 </script>
- <style>
+ <!-- <style>
  select.labels {
      height: 1.2em;
  }
@@ -73,4 +74,4 @@ export default {
  
      height: 100%;
  }
- </style>
+ </style> -->

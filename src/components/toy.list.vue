@@ -1,48 +1,45 @@
 <template>
-    <section class="toys-list main-content">
-        <router-link to="/edit/">add</router-link>
-        <h1>toys list</h1>
-        <ul v-if="toys.length && toys">
-            <!-- <li>{{ toys }}</li> -->
-            <li v-for="toy in toys" :key="toy._id">
-                <toy-preview :toy="toy" @removeToy="removeToy" />
-            </li>
-            <!-- <pre>{{toys}}</pre> -->
-        </ul>
+    <section class="toys-container">
+        <router-link to="/edit/" >add</router-link>
+        <div v-if="toys.length && toys">
+            <toy-preview v-for="toy in toys" :key="toy._id"
+            :toy="toy" @removeToy="removeToy" />
+        </div>
     </section>
 
 </template>
  <script>
-import toyPreview from './toy.preview.vue';
-export default {
-    emits: ['removeToy'],
-    name: 'toyList',
-    props: {
-        toys: {
-            type: Array,
-            required: true,
-        },
-    },
+ import toyPreview from './toy.preview.vue';
+ export default {
+     emits: ['removeToy'],
+     name: 'toyList',
+     props: {
+         toys: {
+             type: Array,
+             required: true,
+         },
+     },
+ 
+     components: {
+         toyPreview,
+     },
+     data() {
+         return {};
+     },
+     created() {
+ 
+     },
+     methods: {
+         removeToy(toy) {
+             this.$emit('removeToy', toy)
+         }
+     },
+     computed: {},
+     unmounted() { },
+ };
+ </script>
 
-    components: {
-        toyPreview,
-    },
-    data() {
-        return {};
-    },
-    created() {
-
-    },
-    methods: {
-        removeToy(toy) {
-            this.$emit('removeToy', toy)
-        }
-    },
-    computed: {},
-    unmounted() { },
-};
-</script>
- <style>
+ <!-- <style>
  .main-content {
      border: 1px black solid;
      margin: 0 auto;
@@ -71,4 +68,4 @@ export default {
  .main-content ul li span {
      color: gray;
  }
- </style>
+ </style> -->

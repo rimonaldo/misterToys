@@ -1,9 +1,9 @@
 <template >
-  <section class="container">
-
+  <section class="main-layout">
+    <user-login @login="login" @getLoggedInUser="getLoggedInUser" @logout="logout" @signup="signup" />
     <app-header />
     <RouterView />
-    <app-footer />
+    <app-footer class="footer full" />
   </section>
 </template>
 
@@ -13,7 +13,8 @@ import { RouterLink, RouterView } from 'vue-router'
 import appHeader from './components/header.vue';
 import appFooter from './components/footer.vue';
 import appHome from './views/home.vue';
-import toyService from './services/toy.service.vue'
+import userLogin from './components/user.login.vue';
+import { userService } from './services/user.service.js'
 import { computed } from '@vue/runtime-core';
 
 export default {
@@ -21,6 +22,7 @@ export default {
     appHeader,
     appFooter,
     appHome,
+    userLogin,
   },
   data() {
     return {
@@ -32,9 +34,45 @@ export default {
     this.$store.dispatch({ type: 'loadToys' })
 
   },
-
+  methods: {
+    // Signup
+    signup(user) {
+      userService.signup(user)
+        .then(() => {
+          // swal({
+          //   icon: 'success',
+          //   title: "Signed up succsesfuly!",
+          // })
+        })
+        .catch(() => {
+          // swal({
+          //   icon: 'error',
+          //   title: "oopps...could not signup",
+          //   text: 'Please try again later'
+          // });
+        })
+    },
+    // Login
+    async login(credentials) {
+      try {
+        const user = await userService.login(credentials)
+        this.$store.dispatch({ type: 'setLoggedUser', user })
+      } catch (err) {
+        console.log('err', err);
+        throw new Error(err)
+      }
+    },
+    // Logout
+    logout() {
+      console.log('logout')
+      userService.logout().then(res => console.log('logedout', res))
+      this.$store.dispatch({type:'logout'})
+    },
+  },
   computed: {
-
+    user(){
+      return this.$store.getters.user
+    }
   },
 }
 

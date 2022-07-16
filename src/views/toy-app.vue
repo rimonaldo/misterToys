@@ -1,16 +1,14 @@
 
 
 <template>
-    <section class="toys">
-        <!-- <toy-filter @setFilter="setFilter"></toy-filter> -->
-        <cool-form @setFilter="setFilter" />
+    <section class="toys ">
+        <toy-filter @setFilter="setFilter" />
         <toy-list :toys="toys" @removeToy="removeToy" v-if="toys" />
     </section>
 </template>
  <script>
 import toyList from '../components/toy.list.vue';
-import toyFilter from '../components/filter.vue';
-import coolForm from '../components/form.vue';
+import toyFilter from '../components/form.vue';
 export default {
     props: {
 
@@ -20,7 +18,6 @@ export default {
     components: {
         toyList,
         toyFilter,
-        coolForm 
     },
     data() {
         return {};

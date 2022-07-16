@@ -12,7 +12,7 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: '../public', // this line place index.html in the public folder
+    outDir: '../backend/public', // this line place index.html in the public folder
     assetsDir: './dist', // this line place your assets in the public/dist folder
   }
 

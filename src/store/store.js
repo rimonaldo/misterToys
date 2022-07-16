@@ -1,7 +1,6 @@
 import { createStore } from "vuex"
 import { toyModule } from "./modules/toy.module.js"
-const USER_KEY = 'userDB'
-const TODO_KEY = 'todosDB'
+import { userModule } from "./modules/user.module.js"
 export const store = createStore({
     strict: true,
     state() {
@@ -14,7 +13,6 @@ export const store = createStore({
     },
     actions: {
 
-
     },
     getters: {
         labels({ labels }) {
@@ -23,8 +21,7 @@ export const store = createStore({
     },
     modules: {
         toyModule,
-
+        userModule,
 
     }
-
 })

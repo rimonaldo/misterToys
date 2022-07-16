@@ -1,0 +1,16 @@
+.teaser {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    img {
+        margin-bottom: rem(50px);
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+    }
+
+    &.teaser-center {
+        align-self: center;
+    }
+}

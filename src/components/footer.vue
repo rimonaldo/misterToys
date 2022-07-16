@@ -1,6 +1,8 @@
 <template>
-    <section class="footer">
-        <h1>footer</h1>
+    <section >
+
+
+        <h3>footer</h3>
     </section>
 </template>
  <script>

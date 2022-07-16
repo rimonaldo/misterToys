@@ -1,47 +1,48 @@
-import { storageService as syncService } from './storage.service.js'
-import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
 
-// import { storageService } from './async-storage.service.js'
-
-const KEY = 'userDB'
+import axios from 'axios'
+const STORAGE_KEY = 'loggedInUser'
+const BASE_URL = (process.env.NODE_ENV !== 'development')
+    ? '/login/'
+    : '//localhost:3030/api/login/'
 
 export const userService = {
-    getLoggedInUser,
-    save
-
+    login,
+    signup,
+    logout,
 }
 
-createUser()
 
-function getLoggedInUser() {
-    return new Promise((resolve, reject) => {
-        let user = syncService.load(KEY)
-        user ? resolve(user) : reject('could not get user')
-    })
-}
-
-function createUser() {
-    let user = syncService.load(KEY)
-    if (!user) {
-        user = _createUser()
-        syncService.store(KEY, user)
+// TODO: support paging and filtering and sorting
+async function login(credentials) {
+    axios.defaults.withCredentials = true
+    try {
+        const user = await axios.post(BASE_URL, credentials)
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+        return user.data
+    }
+    catch (err) {
+        console.log('could not log in ', err);
     }
 }
 
-function _createUser(fname = 'Puki ben david') {
-    return {
-        _id: utilService.makeId(),
-        fname,
-        activites: { action: '', at: '' },
-        todos: []
+async function logout() {
+    try {
+        await axios.post(BASE_URL + 'logout')
+        sessionStorage.clear()
+    } catch (err) {
+        console.log(err)
     }
+
 }
 
-function save(user) {
-    return new Promise((resolve, reject) => {
-        syncService.store(KEY, user)
-        user ? resolve(user) : reject('could not get updated user')
-    })
+async function signup(newUser) {
+    try {
+        console.log('signin up', newUser);
+        const user = await axios.post(BASE_URL + 'signup', newUser)
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+        return user
+    } catch (err) {
+        console.log(err);
+    }
 }
 

@@ -1,0 +1,55 @@
+.toys-container {
+
+    padding: 0;
+
+    // gap: 5px;
+
+    // max-width: 800px;
+    // margin: 0 auto;
+
+    div {
+        // max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(200px, 100%/5)), 1fr));
+        gap: 0.5rem;
+        grid-template-rows: repeat(3, 1fr);
+
+        .toy{    
+            max-height: 400px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: black;
+
+            
+        }
+
+       
+    }
+
+    // div {
+    //     background-color: rgb(126, 189, 150);
+    //     list-style: none;
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: space-between;
+    //     height: 200px;
+    //     .actions {
+    //         text-align: center;
+    //         align-self: flex-end;
+    //         border: 1px white solid;
+    //         display: flex;
+
+    //         >* {
+
+    //         }
+
+    //     }
+
+    //     >* {
+
+    //         flex: 1;
+    //     }
+    // }
+
+}

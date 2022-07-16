@@ -2,24 +2,17 @@
     <section class="filter">
 
         <el-form :model="form" @input="onSubmit">
-            <el-form-item>
-                <div class="search">
-                    <el-input placeholder="Search toy" v-model="filterBy.txt" />
-                </div>
+            <div class="inputs">
+                <el-input class="search" placeholder="Search toy" v-model="filterBy.txt" />
 
-                <div style="display: inline-block">
-                    <p></p>
-                    <el-select @change="onSubmit" v-model="filterBy.byLabel" multiple placeholder="Labels"
-                        style="width: 240px">
-                        <el-option v-for="(label, idx) in labels" :key="idx" :value="label" />
-                    </el-select>
-                </div>
-
-                <div class="in-stock el-input">
-                    <span>In stock</span>
-                    <el-switch v-model="filterBy.status" @change="onSubmit" />
-                </div>
-            </el-form-item>
+                <el-select @change="onSubmit" v-model="filterBy.byLabel" multiple placeholder="Labels">
+                    <el-option v-for="(label, idx) in labels" :key="idx" :value="label" />
+                </el-select>
+            </div>
+            <div class="in-stock el-input">
+                <span>In stock</span>
+                <el-switch checked v-model="byStock" @change="onSubmit" />
+            </div>
 
 
         </el-form>
@@ -35,11 +28,11 @@ export default {
     name: 'filter-form',
     data() {
         return {
-
+            byStock:false,
             labels: ["On wheels", "Box game", "Art", "Baby", "Doll", "Puzzle", "Outdoor"],
             filterBy: {
                 txt: '',
-                status: '',
+                inStock: null,
                 byLabel: [],
                 bySort: '',
             },
@@ -48,8 +41,7 @@ export default {
     },
     methods: {
         onSubmit() {
-            console.log('submit!')
-            console.log(this.filterBy);
+            this.byStock ? this.filterBy.inStock = 'true' : this.filterBy.inStock = 'false'
             if (this.filterBy.byLabel[0] === '') this.filterBy.byLabel = []
             console.log(this.filterBy.byLabel)
             this.$emit('setFilter', this.filterBy)
@@ -65,7 +57,7 @@ export default {
 
 </script>
 
-<style>
+<!-- <style>
 .filter {
     max-width: 1200px;
     margin: 0 auto;
@@ -91,7 +83,8 @@ export default {
 .filter .in-stock span {
     margin: 0 0.2rem;
 }
-</style>
+</style> -->
+
 <!-- <template>
     <section class="filter">
         <input @input="setFilter" v-model="filterBy.txt" type="text" placeholder="Search by toy name..." />
@@ -114,8 +107,6 @@ export default {
             </option>
         </select>
     </section>
-
-
 
     
 </template>
